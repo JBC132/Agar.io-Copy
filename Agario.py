@@ -22,3 +22,26 @@ respawn_bots = False
 player_color = (255,0,0)
 background_color = (0,0,0)
 text_color = (255,255,255)
+
+FONT = pygame.font.Font("comicsans", 32)
+BIGFONT = pygame.font.Font("comicsans", 72)
+WIDTH = 1280
+HEIGHT = 720
+cells = []
+bots = []
+game_over = False
+
+counter = 0
+frame_rate = 30
+start_time = 0
+frame_rate_delay = 0.5
+
+class Cell():
+    def __init__(self, x, y, color, radius, name):
+        self.name = name
+        self.radius = radius
+        self.color = color
+        self.status = random.randint(1,8)
+        self.x_pos = x
+        self.y_pos = y
+        
