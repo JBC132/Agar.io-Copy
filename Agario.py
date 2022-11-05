@@ -23,8 +23,8 @@ player_color = (255,0,0)
 background_color = (0,0,0)
 text_color = (255,255,255)
 
-FONT = pygame.font.Font("comicsans", 32)
-BIGFONT = pygame.font.Font("comicsans", 72)
+FONT = pygame.font.SysFont("comicsans", 32)
+BIGFONT = pygame.font.SysFont("comicsans", 72)
 WIDTH = 1280
 HEIGHT = 720
 cells = []
@@ -45,3 +45,20 @@ class Cell():
         self.x_pos = x
         self.y_pos = y
         
+    def wander(self):
+        pass
+
+    def collide_check(self, player):
+        pass
+
+    def draw(self, surface, x, y):
+        pygame.draw.circle(surface, self.color, (x, y), int(self.radius))
+        if self.name == "Bot" or self.name == "Player":
+            text = FONT.render(str(round(self.radius)), False, text_color)
+
+for i in range(cell_count):
+    new_cell = Cell(random.randint(-map_size, map_size), random.randing(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
+    cells.append(new_cell)
+
+player_cell = Cell(0,0,player_color, spawn_size, "Player")
+
