@@ -57,8 +57,30 @@ class Cell():
             text = FONT.render(str(round(self.radius)), False, text_color)
 
 for i in range(cell_count):
-    new_cell = Cell(random.randint(-map_size, map_size), random.randing(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
+    new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
     cells.append(new_cell)
 
 player_cell = Cell(0,0,player_color, spawn_size, "Player")
+
+while True:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == MOUSEMOTION and game_over == False:
+            mouse_x, mouse_y = event.pos
+        else:
+            mouse_x = WIDTH/2
+            mouse_y = HEIGHT/2
+    
+    if not game_over:
+        player_cell.collide_check(player_cell)
+    
+    for cell in cells:
+        cell.draw(SCREEN, cell.x_pos, cell.y_pos)
+    
+    WIDTH, HEIGHT = pygame.display.get_surface().get_size()
+    pygame.display.update()
+    CLOCK.tick(FPS)
+    SCREEN.fill(background_color)
 
