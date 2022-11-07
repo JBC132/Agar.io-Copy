@@ -76,9 +76,18 @@ while True:
     if not game_over:
         player_cell.collide_check(player_cell)
     
+    player_cell.x_pos += round(-((mouse_x - (WIDTH/2))/player_cell.radius/2))
+    player_cell.y_pos += round(-((mouse_y - (HEIGHT/2))/player_cell.radius/2))
+
     for cell in cells:
-        cell.draw(SCREEN, cell.x_pos, cell.y_pos)
+        cell.draw(SCREEN, cell.x_pos + player_cell.x_pos, cell.y_pos + player_cell.y_pos)
     
+    if game_over == True:
+        text = BIGFONT.render("You lost!", False, text_color)
+        SCREEN.blit(text, ((WIDTH/2)-150, (HEIGHT/2)-40))
+    else:
+        player_cell.draw(SCREEN, (WIDTH/2), (HEIGHT/2))
+
     WIDTH, HEIGHT = pygame.display.get_surface().get_size()
     pygame.display.update()
     CLOCK.tick(FPS)
