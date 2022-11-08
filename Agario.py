@@ -49,7 +49,15 @@ class Cell():
         pass
 
     def collide_check(self, player):
-        pass
+        global cells, bots, game_over
+        for cell in cells:
+            if math.sqrt((player.x_pos - (WIDTH/2) + cell.x_pos)**2 + (player.y_pos - (HEIGHT/2)+ cell.y_pos)**2) <= cell.radius + player.radius and cell.radius <= player.radius:
+                cells.remove(cell)
+                player.radius += 0.25
+                if respawn_cells:
+                    new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
+                    cells.append(new_cell)
+
 
     def draw(self, surface, x, y):
         pygame.draw.circle(surface, self.color, (x, y), int(self.radius))
