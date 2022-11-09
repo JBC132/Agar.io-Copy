@@ -23,7 +23,7 @@ player_color = (255,0,0)
 background_color = (0,0,0)
 text_color = (255,255,255)
 
-FONT = pygame.font.SysFont("comicsans", 32)
+FONT = pygame.font.SysFont("comicsans", 64)
 BIGFONT = pygame.font.SysFont("comicsans", 72)
 WIDTH = 1280
 HEIGHT = 720
@@ -95,6 +95,9 @@ while True:
         SCREEN.blit(text, ((WIDTH/2)-150, (HEIGHT/2)-40))
     else:
         player_cell.draw(SCREEN, (WIDTH/2), (HEIGHT/2))
+
+    text = FONT.render("Mass: " + str(round(player_cell.radius)), False, text_color)
+    SCREEN.blit(text, (20,20))
 
     WIDTH, HEIGHT = pygame.display.get_surface().get_size()
     pygame.display.update()
