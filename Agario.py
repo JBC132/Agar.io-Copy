@@ -23,7 +23,7 @@ player_color = (255,0,0)
 background_color = (0,0,0)
 text_color = (255,255,255)
 
-FONT = pygame.font.SysFont("comicsans", 64)
+FONT = pygame.font.SysFont("comicsans", 48)
 BIGFONT = pygame.font.SysFont("comicsans", 72)
 WIDTH = 1280
 HEIGHT = 720
@@ -98,6 +98,22 @@ while True:
 
     text = FONT.render("Mass: " + str(round(player_cell.radius)), False, text_color)
     SCREEN.blit(text, (20,20))
+
+    counter += 1
+    if frame_rate > 20:
+        text = FONT.render("FPS: " + str(frame_rate), False, (55,255,55))
+        SCREEN.blit(text, (20,60))
+    elif frame_rate <= 20 and frame_rate > 10:
+        text = FONT.render("FPS: " + str(frame_rate), False, (255,255,55))
+        SCREEN.blit(text, (20,60))
+    elif frame_rate <= 10 and frame_rate > 0:
+        text = FONT.render("FPS: " + str(frame_rate), False, (255,55,55))
+        SCREEN.blit(text, (20,60))
+
+    if (time.time() - start_time) < frame_rate_delay:
+        frame_rate = round(counter / (time.time() - start_time))
+        counter = 0
+        start_time = time.time()
 
     WIDTH, HEIGHT = pygame.display.get_surface().get_size()
     pygame.display.update()
