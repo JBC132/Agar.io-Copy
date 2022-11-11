@@ -15,7 +15,7 @@ cell_count = 2000
 bot_count = 20
 map_size = 2000
 spawn_size = 25
-bots_mins_size = 25
+bots_min_size = 25
 bots_max_size = 250
 respawn_cells = True
 respawn_bots = False
@@ -46,7 +46,30 @@ class Cell():
         self.y_pos = y
         
     def wander(self):
-        pass
+        randomize = random.randint(1, round(self.radius))
+        if randomize == 1:
+            self.status = random.randint(1,8)
+        
+        if self.status == 1:
+            self.y_pos += 300 / self.radius
+        elif self.status == 2:
+            self.x_pos += 150 / self.radius
+            self.y_pos += 150 / self.radius        
+        elif self.status == 3:
+            self.x_pos += 300 / self.radius
+        elif self.status == 4:
+            self.x_pos += 150 / self.radius
+            self.y_pos -= 150 / self.radius
+        elif self.status == 5:
+            self.y_pos -= 300 / self.radius
+        elif self.status == 6:
+            self.x_pos -= 150 / self.radius
+            self.y_pos -= 150 / self.radius
+        elif self.status == 7:
+            self.y_pos -= 300 / self.radius
+        elif self.status == 8:
+            self.x_pos -= 150 / self.radius
+            self.y_pos += 150 / self.radius
 
     def collide_check(self, player):
         global cells, bots, game_over
@@ -63,11 +86,15 @@ class Cell():
         pygame.draw.circle(surface, self.color, (x, y), int(self.radius))
         if self.name == "Bot" or self.name == "Player":
             text = FONT.render(str(round(self.radius)), False, text_color)
+            SCREEN.blit(text, (x-16.5, y-12.5))
 
 for i in range(cell_count):
     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
     cells.append(new_cell)
 
+for i in range(bot_count):
+    new_bot = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), random.randint(bots_min_size, bots_max_size), "Bot")
+    bots.append(new_bot)
 player_cell = Cell(0,0,player_color, spawn_size, "Player")
 
 while True:
@@ -90,6 +117,10 @@ while True:
     for cell in cells:
         cell.draw(SCREEN, cell.x_pos + player_cell.x_pos, cell.y_pos + player_cell.y_pos)
     
+    for bot in bots:
+        bot.wander()
+        bot.draw(SCREEN, bot.x_pos + player_cell.x_pos, bot.y_pos + player_cell.y_pos)
+
     if game_over == True:
         text = BIGFONT.render("You lost!", False, text_color)
         SCREEN.blit(text, ((WIDTH/2)-150, (HEIGHT/2)-40))
