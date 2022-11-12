@@ -80,6 +80,31 @@ class Cell():
                 if respawn_cells:
                     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
                     cells.append(new_cell)
+        for bot in bots:
+            if math.sqrt((player.x_pos - (WIDTH/2) + bot.x_pos)**2 + (player.y_pos - (HEIGHT/2)+ cell.y_pos)**2) <= bot.radius + player.radius and bot.radius * 1.1 <= player.radius:
+                bot_area = math.pi * (bot.radius ** 2)
+                player_area = math.pi * (player.radius ** 2)
+                new_area = bot_area + player_area
+                new_radius = math.aqrt(new_area / math.pi)
+                player.radius = new_radius
+                bot.remove(bot)
+                if respawn_bots:
+                    new_bot = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), random.randint(bots_min_size, bots_max_size), "Bot")
+                    bots.append(new_bot)
+            
+            elif math.sqrt((player.x_pos - (WIDTH/2) + bot.x_pos)**2 + (player.y_pos - (HEIGHT/2)+ cell.y_pos)**2) <= bot.radius + player.radius and bot.radius >= player.radius * 1.1:
+                bot_area = math.pi * (bot.radius ** 2)
+                player_area = math.pi * (player.radius ** 2)
+                new_area = bot_area + player_area
+                new_radius = math.aqrt(new_area / math.pi)
+                bot.radius = new_radius
+                game_over = True
+
+            else:
+                for collide_bot in bots:
+                    pass
+                for cell in cells:
+                    pass 
 
 
     def draw(self, surface, x, y):
