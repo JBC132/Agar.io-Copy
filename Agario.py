@@ -113,7 +113,12 @@ class Cell():
                             new_bot = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), random.randint(bots_min_size, bots_max_size), "Bot")
                             bots.append(new_bot)
                 for cell in cells:
-                    pass 
+                    if math.sqrt((bot.x_pos - cell.x_pos)**2 + (bot.y_pos - cell.y_pos)**2) <= cell.radius + bot.radius and cell.radius <= bot.radius:
+                        cells.remove(cell)
+                        bot.radius += 0.25
+                        if respawn_cells:
+                            new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
+                            cells.append(new_cell) 
 
 
     def draw(self, surface, x, y):
