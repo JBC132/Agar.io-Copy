@@ -150,8 +150,19 @@ while True:
     if not game_over:
         player_cell.collide_check(player_cell)
     
-    player_cell.x_pos += round(-((mouse_x - (WIDTH/2))/player_cell.radius/2))
-    player_cell.y_pos += round(-((mouse_y - (HEIGHT/2))/player_cell.radius/2))
+    if player_cell.x_pos >= map_size + (WIDTH/2):
+        player_cell.x_pos -= 5
+    elif player_cell.x_pos <= -map_size + (WIDTH/2):
+        player_cell.x_pos += 5
+    else:
+        player_cell.x_pos += round(-((mouse_x - (WIDTH/2))/player_cell.radius/2))
+
+    if player_cell.y_pos >= map_size + (HEIGHT/2):
+        player_cell.y_pos -= 5
+    elif player_cell.y_pos <= -map_size + (HEIGHT/2):
+        player_cell.y_pos += 5
+    else:
+        player_cell.y_pos += round(-((mouse_y - (HEIGHT/2))/player_cell.radius/2))
 
     for cell in cells:
         cell.draw(SCREEN, cell.x_pos + player_cell.x_pos, cell.y_pos + player_cell.y_pos)
