@@ -81,7 +81,7 @@ class Cell():
                     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
                     cells.append(new_cell)
         for bot in bots:
-            if math.sqrt((player.x_pos - (WIDTH/2) + bot.x_pos)**2 + (player.y_pos - (HEIGHT/2)+ bot.y_pos)**2) <= bot.radius + player.radius and bot.radius * 1.1 <= player.radius:
+            if math.sqrt((player.x_pos - (WIDTH/2) + bot.x_pos)**2 + (player.y_pos - (HEIGHT/2)+ bot.y_pos)**2) <= player.radius and bot.radius * 1.1 <= player.radius:
                 bot_area = math.pi * (bot.radius ** 2)
                 player_area = math.pi * (player.radius ** 2)
                 new_area = bot_area + player_area
@@ -102,7 +102,7 @@ class Cell():
 
             else:
                 for collide_bot in bots:
-                    if math.sqrt((collide_bot.x_pos - bot.x_pos)**2 + (collide_bot.y_pos - bot.y_pos)**2) <= bot.radius + bot.radius and bot.radius >= collide_bot.radius * 1.1:
+                    if math.sqrt((collide_bot.x_pos - bot.x_pos)**2 + (collide_bot.y_pos - bot.y_pos)**2) <= bot.radius and bot.radius >= collide_bot.radius * 1.1:
                         bots.remove(collide_bot)
                         bot_area = math.pi * (bot.radius ** 2)
                         collide_bot_area = math.pi * (collide_bot.radius ** 2)
@@ -134,6 +134,7 @@ for i in range(cell_count):
 for i in range(bot_count):
     new_bot = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), random.randint(bots_min_size, bots_max_size), "Bot")
     bots.append(new_bot)
+
 player_cell = Cell(0,0,player_color, spawn_size, "Player")
 
 while True:
@@ -162,12 +163,20 @@ while True:
     elif player_cell.y_pos <= -map_size + (HEIGHT/2):
         player_cell.y_pos += 5
     else:
-        player_cell.y_pos += round(-((mouse_y - (HEIGHT/2))/player_cell.radius/2))
+        player_cell.y_pos += round(-((mouse_y - (HEIGHT/2))/player_cell.radius))
 
     for cell in cells:
         cell.draw(SCREEN, cell.x_pos + player_cell.x_pos, cell.y_pos + player_cell.y_pos)
     
     for bot in bots:
+        if bot.x_pos >= map_size:
+            bot.x_pos -= 5
+        elif bot.x_pos <= -map_size:
+            bot.x_pos += 5
+        if bot.y_pos >= map_size:
+            bot.y_pos -= 5
+        elif bot.y_pos <= -map_size:
+            bot.y_pos += 5
         bot.wander()
         bot.draw(SCREEN, bot.x_pos + player_cell.x_pos, bot.y_pos + player_cell.y_pos)
 
