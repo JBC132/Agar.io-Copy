@@ -66,7 +66,17 @@ class Cell():
                 if distance <= smallest_bot_distance and bot != self:
                     smallest_bot_distance = distance
                     closest_bot = bot
-        
+            
+            if smallest_bot_distance <= self.radius + bot_pursuit_range*0.75:
+                if closest_bot.radius*1.1 <= self.radius:
+                    self.wandering = False
+                    self.pursuit = True
+                    self.pursuiting = closest_bot
+
+                else:
+                    self.wandering = False
+                    self.running = True
+                    self.chaser = closest_bot        
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
         if randomize == 1:
