@@ -44,8 +44,18 @@ class Cell():
         self.status = random.randint(1,8)
         self.x_pos = x
         self.y_pos = y
+        if self.name == 'Bot':
+            self.wandering = True
+            self.pursuit = False
+            self.pursuiting = "None"
+            self.running = False
+            self.chaser = "None"
+
+    def intelligence(self):
+        global cells, bots, bot_pursuit_range, closest_cell, cornering_range
+        pass
         
-    def wander(self):
+    """def wander(self):
         randomize = random.randint(1, round(self.radius))
         if randomize == 1:
             self.status = random.randint(1,8)
@@ -69,7 +79,7 @@ class Cell():
             self.y_pos -= 300 / self.radius
         elif self.status == 8:
             self.x_pos -= 150 / self.radius
-            self.y_pos += 150 / self.radius
+            self.y_pos += 150 / self.radius"""
 
     def collide_check(self, player):
         global cells, bots, game_over
