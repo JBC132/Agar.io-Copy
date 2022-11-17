@@ -53,7 +53,19 @@ class Cell():
 
     def intelligence(self):
         global cells, bots, bot_pursuit_range, closest_cell, cornering_range
-        pass
+        if self.wandering == "True":
+            smallest_distance = 4000
+            for cell in cells:
+                distance = math.sqrt(((cell.x_pos - self.x_pos)**2)+((cell.y_pos - self.y_pos)**2))
+                if distance <= smallest_distance:
+                    smallest_distance = distance
+                    closest_cell = cell
+            smallest_bot_distance = 4000
+            for bot in bots:
+                distance = math.sqrt(((bot.x_pos - self.x_pos)**2)+((bot.y_pos - self.y_pos)**2))
+                if distance <= smallest_bot_distance and bot != self:
+                    smallest_bot_distance = distance
+                    closest_bot = bot
         
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
