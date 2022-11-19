@@ -76,7 +76,17 @@ class Cell():
                 else:
                     self.wandering = False
                     self.running = True
-                    self.chaser = closest_bot        
+                    self.chaser = closest_bot       
+
+            if closest_cell.x_pos < self.x_pos:
+                self.x_pos -= 150/self.radius
+            else:
+                self.x_pos += 150/self.radius
+            if closest_cell.y_pos < self.y_pos:
+                self.y_pos -= 150/self.radius
+            else:
+                self.y_pos += 150/self.radius
+             
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
         if randomize == 1:
