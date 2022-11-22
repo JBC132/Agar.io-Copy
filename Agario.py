@@ -99,7 +99,17 @@ class Cell():
                         self.wandering = False
                         self.running = True
                         self.chaser = "Player"
-
+        elif self.pursuit == True:
+            if self.pursuiting == "Player":
+                if player_cell.x_pos < -(self.x_pos - (WIDTH/2)):
+                    self.x_pos += 150/self.radius
+                else:
+                    self.x_pos -= 150/self.radius
+                
+                if player_cell.y_pos < -(self.y_pos - (HEIGHT/2)):
+                    self.y_pos += 150/self.radius
+                else:
+                    self.y_pos -= 150/self.radius
              
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
