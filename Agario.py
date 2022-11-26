@@ -140,6 +140,14 @@ class Cell():
                     self.y_pos -= 150/self.radius
                 else:
                     self.y_pos += 150/self.radius
+                
+                bot_distance = math.sqrt(((self.pursuiting.x_pos-self.x_pos)**2) + ((self.pursuiting.y_pos-self.y_pos)**2))
+                if bot_distance >= self.radius + bot_pursuit_range or self.pursuiting.radius*1.1 >= self.radius or len(bots) == 1 or self.pursuiting not in bots:
+                    self.wandering = True
+                    self.pursuit = False
+                    self.pursuiting = "None"
+                
+                player_distance = math.sqrt(((player_cell.x_pos-(WIDTH/2)+self.x_pos)**2) + ((player_cell.y_pos-(HEIGHT/2)+self.y_pos)**2))
 
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
