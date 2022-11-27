@@ -148,6 +148,13 @@ class Cell():
                     self.pursuiting = "None"
                 
                 player_distance = math.sqrt(((player_cell.x_pos-(WIDTH/2)+self.x_pos)**2) + ((player_cell.y_pos-(HEIGHT/2)+self.y_pos)**2))
+                if player_distance <= self.radius + bot_pursuit_range * 0.75:
+                    if player_cell.radius <= self.radius * 1.1 and self.pursuiting == "None":
+                        self.pursuit = False
+                        self.pursuiting = "None"
+                        self.running = True
+                        self.chaser = "Player"
+                
 
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
