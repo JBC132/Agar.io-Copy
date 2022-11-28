@@ -154,6 +154,17 @@ class Cell():
                         self.pursuiting = "None"
                         self.running = True
                         self.chaser = "Player"
+            
+            elif self.running == True:
+                if self.chaser.x_pos < self.x_pos:
+                    self.x_pos += 150/self.radius
+                else:
+                    self.x_pos -= 150/self.radius
+                
+                if self.chaser.y_pos < self.y_pos:
+                    self.y_pos += 150/self.radius
+                else:
+                    self.y_pos -= 150/self.radius
                 
 
     """def wander(self):
