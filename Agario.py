@@ -156,23 +156,27 @@ class Cell():
                         self.chaser = "Player"
             
             elif self.running == True:
-                if self.chaser.x_pos < self.x_pos:
-                    self.x_pos += 150/self.radius
-                else:
-                    self.x_pos -= 150/self.radius
-                
-                if self.chaser.y_pos < self.y_pos:
-                    self.y_pos += 150/self.radius
-                else:
-                    self.y_pos -= 150/self.radius
-                
-                player_distance = math.sqrt(((player_cell.x_pos-(WIDTH/2)+self.x_pos)**2)+(player_cell.y_pos-(HEIGHT/2)+self.y_pos)**2)
-                if player_distance >= self.radius + bot_pursuit_range*1.1 or player_cell.radius*1.1 <= self.radius:
-                    self.wandering = True
-                    self.running = False
-                    self.chaser = "None"
+                if self.chaser == "Player":
+                    if self.chaser.x_pos < self.x_pos:
+                        self.x_pos += 150/self.radius
+                    else:
+                        self.x_pos -= 150/self.radius
+                    
+                    if self.chaser.y_pos < self.y_pos:
+                        self.y_pos += 150/self.radius
+                    else:
+                        self.y_pos -= 150/self.radius
+                    
+                    player_distance = math.sqrt(((player_cell.x_pos-(WIDTH/2)+self.x_pos)**2)+(player_cell.y_pos-(HEIGHT/2)+self.y_pos)**2)
+                    if player_distance >= self.radius + bot_pursuit_range*1.1 or player_cell.radius*1.1 <= self.radius:
+                        self.wandering = True
+                        self.running = False
+                        self.chaser = "None"
+                elif self.chaser != "None":
+                    if self.chaser.x_pos < self.x_pos:
+                        self.x_pos += 150/self.radius
             
-            
+
 
     """def wander(self):
         randomize = random.randint(1, round(self.radius))
