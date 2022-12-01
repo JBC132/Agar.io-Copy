@@ -175,6 +175,12 @@ class Cell():
                 elif self.chaser != "None":
                     if self.chaser.x_pos < self.x_pos:
                         self.x_pos += 150/self.radius
+                    else:
+                        self.x_pos -= 150/self.radius
+                    if self.chaser.y_pos < self.y_pos:
+                        self.y_pos += 150/self.radius
+                    else:
+                        self.y_pos -= 150/self.radius
             
 
 
