@@ -23,6 +23,7 @@ player_color = (255,0,0)
 background_color = (0,0,0)
 text_color = (255,255,255)
 
+TINYFONT = pygame.font.SysFont("comicsans", 16)
 FONT = pygame.font.SysFont("comicsans", 48)
 BIGFONT = pygame.font.SysFont("comicsans", 72)
 WIDTH = 1280
@@ -269,6 +270,9 @@ class Cell():
         if self.name == "Bot" or self.name == "Player":
             text = FONT.render(str(round(self.radius)), False, text_color)
             SCREEN.blit(text, (x-16.5, y-12.5))
+            if self.name == "Bot" and self.wandering == True:
+                text = TINYFONT.render("Collecting Mass", False, text_color)
+                SCREEN.blit(text, (x-50,y-30))
 
 for i in range(cell_count):
     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
