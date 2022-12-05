@@ -269,10 +269,17 @@ class Cell():
         pygame.draw.circle(surface, self.color, (x, y), int(self.radius))
         if self.name == "Bot" or self.name == "Player":
             text = FONT.render(str(round(self.radius)), False, text_color)
-            SCREEN.blit(text, (x-16.5, y-12.5))
+            SCREEN.blit(text, (x-17.5, y-12.5))
             if self.name == "Bot" and self.wandering == True:
                 text = TINYFONT.render("Collecting Mass", False, text_color)
                 SCREEN.blit(text, (x-50,y-30))
+            elif self.name == "Bot" and self.pursuit == True:
+                if self.pursuiting == "Player":
+                    text = TINYFONT.render("In Pursuit Of You", False, text_color)
+                    SCREEN.blit(text, (x-60,y-30))
+                else:
+                    text = TINYFONT.render("In Pursuit Of A Bot", False, text_color)
+                    SCREEN.blit(text, (x-60,y-30))
 
 for i in range(cell_count):
     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
