@@ -280,6 +280,17 @@ class Cell():
                 else:
                     text = TINYFONT.render("In Pursuit Of A Bot", False, text_color)
                     SCREEN.blit(text, (x-60,y-30))
+            
+            elif self.name == "Bot" and self.running == True:
+                if self.chaser == "Player":
+                    text = TINYFONT.render("Running Away From You", False, text_color)
+                    SCREEN.blit(text, (x - 82.5, y - 30))
+                else:
+                    text = TINYFONT.render("Running Away From A Bot", False, text_color)
+                    SCREEN.blit(text, (x - 82.5, y - 30))
+            else:
+                text = TINYFONT.render("Player", False, text_color)
+                SCREEN.blit(text, (x-25, y-30))
 
 for i in range(cell_count):
     new_cell = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), 5, "Cell")
