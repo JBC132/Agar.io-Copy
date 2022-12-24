@@ -300,6 +300,7 @@ for i in range(bot_count):
     new_bot = Cell(random.randint(-map_size, map_size), random.randint(-map_size, map_size), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), random.randint(bots_min_size, bots_max_size), "Bot")
     bots.append(new_bot)
 
+global player_cell
 player_cell = Cell(0,0,player_color, spawn_size, "Player")
 
 while True:
@@ -342,7 +343,10 @@ while True:
             bot.y_pos -= 5
         elif bot.y_pos <= -map_size:
             bot.y_pos += 5
-        bot.wander()
+        if bot.radius > 25:
+            bot.radius -= bot.radius / 25000
+            
+        bot.intelligence()
         bot.draw(SCREEN, bot.x_pos + player_cell.x_pos, bot.y_pos + player_cell.y_pos)
 
     if game_over == True:
